@@ -1,0 +1,641 @@
+USE [racepository]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 1/30/2025 2:50:36 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Class]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Class](
+	[Id] [nvarchar](32) NOT NULL,
+	[Code] [nvarchar](32) NOT NULL,
+	[Description] [nvarchar](420) NULL,
+	[dtcreated] [datetime2](7) NOT NULL,
+	[dtlastmodified] [datetime2](7) NULL,
+	[dterased] [datetime2](7) NULL,
+	[lastmodifiedby] [nvarchar](64) NULL,
+ CONSTRAINT [PK_Class] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Racers]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Racers](
+	[Id] [nvarchar](32) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+	[Number] [int] NOT NULL,
+	[CarDetails] [nvarchar](256) NULL,
+	[RaceClass] [nvarchar](32) NULL,
+	[Notes] [nvarchar](420) NULL,
+	[TeamIdOptional] [nvarchar](32) NULL,
+	[dtcreated] [datetime2](7) NOT NULL,
+	[dtlastmodified] [datetime2](7) NULL,
+	[dterased] [datetime2](7) NULL,
+	[lastmodifiedby] [nvarchar](64) NULL,
+ CONSTRAINT [PK_Racers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Registrations]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Registrations](
+	[Id] [nvarchar](32) NOT NULL,
+	[RacerId] [nvarchar](32) NOT NULL,
+	[RoundId] [nvarchar](32) NOT NULL,
+	[RaceClass] [nvarchar](32) NOT NULL,
+	[dtcreated] [datetime2](7) NOT NULL,
+	[dtlastmodified] [datetime2](7) NULL,
+	[dterased] [datetime2](7) NULL,
+	[lastmodifiedby] [nvarchar](64) NULL,
+ CONSTRAINT [PK_Participants] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Rounds]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Rounds](
+	[Id] [nvarchar](32) NOT NULL,
+	[Name] [nvarchar](128) NOT NULL,
+	[Description] [nvarchar](420) NULL,
+	[EventDate] [datetime2](7) NULL,
+	[Venue] [nvarchar](128) NULL,
+	[SeasonId] [nvarchar](32) NOT NULL,
+	[dtcreated] [datetime2](7) NOT NULL,
+	[dtlastmodified] [datetime2](7) NULL,
+	[dterased] [datetime2](7) NULL,
+	[lastmodifiedby] [nvarchar](64) NULL,
+ CONSTRAINT [PK_Rounds] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RunDetails]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RunDetails](
+	[Id] [nvarchar](32) NOT NULL,
+	[RoundDetailId] [nvarchar](32) NOT NULL,
+	[RawTime] [datetime2](7) NULL,
+	[TotalAdditionalTime] [datetime2](7) NULL,
+	[Pylon] [int] NOT NULL,
+	[StopBox] [int] NOT NULL,
+	[Remarks] [nvarchar](64) NULL,
+	[dtcreated] [datetime2](7) NOT NULL,
+	[dtlastmodified] [datetime2](7) NULL,
+	[dterased] [datetime2](7) NULL,
+	[lastmodifiedby] [nvarchar](64) NULL,
+ CONSTRAINT [PK_RunDetails] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Seasons]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Seasons](
+	[Id] [nvarchar](32) NOT NULL,
+	[Title] [nvarchar](128) NOT NULL,
+	[Description] [nvarchar](420) NULL,
+	[Start] [datetime2](7) NOT NULL,
+	[Finish] [datetime2](7) NULL,
+	[dtcreated] [datetime2](7) NOT NULL,
+	[dtlastmodified] [datetime2](7) NULL,
+	[dterased] [datetime2](7) NULL,
+	[lastmodifiedby] [nvarchar](64) NULL,
+ CONSTRAINT [PK_Seasons] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Teams]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Teams](
+	[Id] [nvarchar](32) NOT NULL,
+	[Name] [nvarchar](128) NOT NULL,
+	[Description] [nvarchar](420) NULL,
+	[dtcreated] [datetime2](7) NOT NULL,
+	[dtlastmodified] [datetime2](7) NULL,
+	[dterased] [datetime2](7) NULL,
+	[lastmodifiedby] [nvarchar](64) NULL,
+ CONSTRAINT [PK_Teams] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Registrations]  WITH CHECK ADD  CONSTRAINT [FK_Participants_Racers_RacerId] FOREIGN KEY([RacerId])
+REFERENCES [dbo].[Racers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Registrations] CHECK CONSTRAINT [FK_Participants_Racers_RacerId]
+GO
+ALTER TABLE [dbo].[Registrations]  WITH CHECK ADD  CONSTRAINT [FK_Participants_Rounds_RoundId] FOREIGN KEY([RoundId])
+REFERENCES [dbo].[Rounds] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Registrations] CHECK CONSTRAINT [FK_Participants_Rounds_RoundId]
+GO
+ALTER TABLE [dbo].[Rounds]  WITH CHECK ADD  CONSTRAINT [FK_Rounds_Seasons_SeasonId] FOREIGN KEY([SeasonId])
+REFERENCES [dbo].[Seasons] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Rounds] CHECK CONSTRAINT [FK_Rounds_Seasons_SeasonId]
+GO
+ALTER TABLE [dbo].[RunDetails]  WITH CHECK ADD  CONSTRAINT [FK_RunDetails_Participants_RoundDetailId] FOREIGN KEY([RoundDetailId])
+REFERENCES [dbo].[Registrations] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[RunDetails] CHECK CONSTRAINT [FK_RunDetails_Participants_RoundDetailId]
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_class_GetAll]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+            CREATE PROCEDURE [dbo].[_dapper_class_GetAll]
+            AS
+            BEGIN
+                SELECT * FROM class 
+                -- add any filtering here that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_class_GetByUlid]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+            CREATE PROCEDURE [dbo].[_dapper_class_GetByUlid]
+                @Ulid NVARCHAR(32)
+            AS
+            BEGIN
+                SELECT * FROM class WHERE Id = @Ulid
+                -- AND <addditional rule>
+                -- where additional rule is secondary condition
+                -- that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_class_Insert]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[_dapper_class_Insert]
+		   @Id nvarchar(32),
+           @Code nvarchar(128),
+           @Description nvarchar(420),
+           @dtcreated datetime2(7)
+AS
+BEGIN
+INSERT INTO [dbo].[Class]
+           ([Id]
+           ,[Code]
+           ,[Description]
+           ,[dtcreated]
+           )
+     VALUES
+           (@Id,
+           @Code,
+           @Description, 
+           @dtcreated)
+
+SELECT @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_class_Update]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE PROCEDURE [dbo].[_dapper_class_Update]
+		   @Id nvarchar(32),
+           @Code nvarchar(128),
+           @Description nvarchar(420),
+           @dtlastmodified datetime2(7)
+		   AS
+
+BEGIN
+UPDATE [dbo].[Class]
+   SET  
+      [Code] = @Code, 
+      [Description] = @Description, 
+	  [dtlastmodified] = @dtlastmodified
+ WHERE [Id] = @Id
+
+SELECT @Id
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_racer_GetAll]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+            CREATE PROCEDURE [dbo].[_dapper_racer_GetAll]
+            AS
+            BEGIN
+                SELECT * FROM Racers 
+                -- add any filtering here that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_racer_GetByUlid]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+            CREATE PROCEDURE [dbo].[_dapper_racer_GetByUlid]
+                @Ulid NVARCHAR(32)
+            AS
+            BEGIN
+                SELECT * FROM Racers WHERE Id = @Ulid
+                -- AND <addditional rule>
+                -- where additional rule is secondary condition
+                -- that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_racer_Insert]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[_dapper_racer_Insert]
+@Id nvarchar(32),
+           @Name nvarchar(256),
+           @Number int,
+           @CarDetails nvarchar(256),
+           @RaceClass nvarchar(32),
+           @Notes nvarchar(420),
+           @TeamIdOptional nvarchar(32),
+           @dtcreated datetime2(7)
+AS
+BEGIN
+INSERT INTO [dbo].[Racers]
+           ([Id]
+           ,[Name]
+           ,[Number]
+           ,[CarDetails]
+           ,[RaceClass]
+           ,[Notes]
+           ,[TeamIdOptional]
+           ,[dtcreated]
+           )
+     VALUES
+           (@Id,
+           @Name,
+           @Number,
+           @CarDetails, 
+           @RaceClass,
+           @Notes, 
+           @TeamIdOptional,
+           @dtcreated)
+
+SELECT @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_racer_Update]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[_dapper_racer_Update]
+		   @Id nvarchar(32),
+           @Name nvarchar(256),
+           @Number int,
+           @CarDetails nvarchar(256),
+           @RaceClass nvarchar(32),
+           @Notes nvarchar(420),
+           @TeamIdOptional nvarchar(32),
+           @dtlastmodified datetime2(7)
+		   AS
+
+BEGIN
+UPDATE [dbo].[Racers]
+   SET  
+      [Name] = @Name, 
+      [Number] = @Number, 
+      [CarDetails] = @CarDetails, 
+      [RaceClass] = @RaceClass, 
+      [Notes] = @Notes, 
+      [TeamIdOptional] = @TeamIdOptional, 
+	  [dtlastmodified] = @dtlastmodified
+ WHERE [Id] = @Id
+
+SELECT @Id
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_registration_GetAll]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+            CREATE PROCEDURE [dbo].[_dapper_registration_GetAll]
+            AS
+            BEGIN
+                SELECT * FROM registrations 
+                -- add any filtering here that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_registration_GetByUlid]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+            CREATE PROCEDURE [dbo].[_dapper_registration_GetByUlid]
+                @Ulid NVARCHAR(32)
+            AS
+            BEGIN
+                SELECT * FROM registrations WHERE Id = @Ulid
+                -- AND <addditional rule>
+                -- where additional rule is secondary condition
+                -- that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_registration_Insert]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE PROCEDURE [dbo].[_dapper_registration_Insert]
+		   @Id nvarchar(32),
+		   @RaceClass nvarchar(32),
+           @RoundId nvarchar(32),
+		   @RacerId nvarchar(32),
+           @dtcreated datetime2(7)
+AS
+BEGIN
+INSERT INTO [dbo].[registrations]
+           ([Id]
+           ,[RaceClass]
+           ,[RoundId]
+		   ,[RacerId]
+           ,[dtcreated]
+           )
+     VALUES
+           (@Id,
+           @RaceClass,
+           @RoundId, 
+		   @RacerId,
+           @dtcreated)
+
+SELECT @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_registration_Update]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE PROCEDURE [dbo].[_dapper_registration_Update]
+		   @Id nvarchar(32),
+		   @RaceClass nvarchar(32),
+           @RoundId nvarchar(32),
+		   @RacerId nvarchar(32),
+		   @dtlastmodified datetime2(7)
+		   AS
+
+BEGIN
+UPDATE [dbo].[registrations]
+   SET  
+      [RaceClass] = @RaceClass, 
+      [RoundId] = @RoundId, 
+	  [RacerId] = @RacerId,
+	  [dtlastmodified] = @dtlastmodified
+ WHERE [Id] = @Id
+
+SELECT @Id
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_round_GetAll]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+            CREATE PROCEDURE [dbo].[_dapper_round_GetAll]
+            AS
+            BEGIN
+                SELECT * FROM rounds 
+                -- add any filtering here that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_round_GetByUlid]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+            CREATE PROCEDURE [dbo].[_dapper_round_GetByUlid]
+                @Ulid NVARCHAR(32)
+            AS
+            BEGIN
+                SELECT * FROM rounds WHERE Id = @Ulid
+                -- AND <addditional rule>
+                -- where additional rule is secondary condition
+                -- that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_round_Insert]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[_dapper_round_Insert]
+		   @Id nvarchar(32),
+           @Name nvarchar(128),
+           @Description nvarchar(420),
+		   @EventDate datetime2(7),
+		   @Venue nvarchar(128),
+		   @SeasonId nvarchar(32),
+           @dtcreated datetime2(7)
+AS
+BEGIN
+INSERT INTO [dbo].[rounds]
+           ([Id]
+           ,[Name]
+           ,[Description]
+		   ,[EventDate]
+		   ,[Venue]
+		   ,[SeasonId]
+           ,[dtcreated]
+           )
+     VALUES
+           (@Id,
+           @Name,
+           @Description, 
+		   @EventDate,
+		   @Venue,
+		   @SeasonId,
+           @dtcreated)
+
+SELECT @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_round_Update]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[_dapper_round_Update]
+		   @Id nvarchar(32),
+           @Name nvarchar(128),
+           @Description nvarchar(420),
+		   @EventDate datetime2(7),
+		   @Venue nvarchar(128),
+		   @SeasonId nvarchar(32),
+		   @dtlastmodified datetime2(7)
+		   AS
+
+BEGIN
+UPDATE [dbo].[rounds]
+   SET  
+      [Name] = @Name, 
+      [Description] = @Description, 
+	  [EventDate] = @EventDate,
+	  [Venue] = @Venue,
+	  [SeasonId] = @SeasonId,
+	  [dtlastmodified] = @dtlastmodified
+ WHERE [Id] = @Id
+
+SELECT @Id
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_team_GetAll]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+            CREATE PROCEDURE [dbo].[_dapper_team_GetAll]
+            AS
+            BEGIN
+                SELECT * FROM teams 
+                -- add any filtering here that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_team_GetByUlid]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+            CREATE PROCEDURE [dbo].[_dapper_team_GetByUlid]
+                @Ulid NVARCHAR(32)
+            AS
+            BEGIN
+                SELECT * FROM teams WHERE Id = @Ulid
+                -- AND <addditional rule>
+                -- where additional rule is secondary condition
+                -- that should case rows not to be returned
+            END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_team_Insert]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[_dapper_team_Insert]
+		   @Id nvarchar(32),
+           @Name nvarchar(128),
+           @Description nvarchar(420),
+           @dtcreated datetime2(7)
+AS
+BEGIN
+INSERT INTO [dbo].[Teams]
+           ([Id]
+           ,[Name]
+           ,[Description]
+           ,[dtcreated]
+           )
+     VALUES
+           (@Id,
+           @Name,
+           @Description, 
+           @dtcreated)
+
+SELECT @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[_dapper_team_Update]    Script Date: 1/30/2025 2:50:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[_dapper_team_Update]
+		   @Id nvarchar(32),
+           @Name nvarchar(128),
+           @Description nvarchar(420),
+           @dtlastmodified datetime2(7)
+		   AS
+
+BEGIN
+UPDATE [dbo].[Teams]
+   SET  
+      [Name] = @Name, 
+      [Description] = @Description, 
+	  [dtlastmodified] = @dtlastmodified
+ WHERE [Id] = @Id
+
+SELECT @Id
+END
+
+GO
