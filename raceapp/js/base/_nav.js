@@ -12,7 +12,7 @@
  *
  **/
 
-class Nav {
+export default class Nav {
   // Default options
   get options() {
     return {
@@ -28,9 +28,8 @@ class Nav {
     if (!element) {
       return;
     }
-    // **************************
     window["nav"] = this;    
-    // **************************
+    
     this.settings = Object.assign(this.options, options);
     this.settings = Object.assign(this.settings, element.dataset);
     this.element = element;

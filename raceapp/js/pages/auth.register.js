@@ -6,30 +6,16 @@
  *
  *
  */
-var Messages;
-var Toasts;
-var AuthApi;
 
 
 class AuthRegisterForm {
     constructor() {
-        this._messages = null
-        this._toasts = null
-        this._authApi = null
+
     }
 
     // Public
-    init(mes, toa, aut) {
-        this._Messages = mes;
-        this._messages = new mes();
-
-        this._Toasts = toa;
-        // do not pre-instantiate Toasts
-
-        this._AuthApi = aut;
-        this._authApi = new aut();
-
-        const form = document.getElementById("registerForm");
+    init() {
+       const form = document.getElementById("registerForm");
         if (!form) {
             return;
         }
@@ -67,6 +53,12 @@ class AuthRegisterForm {
                 },
             },
         };
+
+        mudPool.depends([
+            './api/auth.api.js',
+            './helpers/routes.js'
+        ], (authApi, routes) => {
+                   
         jQuery(form).validate(validateOptions);
 
         form.addEventListener("submit", (event) => {
@@ -121,52 +113,34 @@ class AuthRegisterForm {
                     }
                 );
             }
+         });
         });
     }
-
-
 }
 
-modulepool.depends([
+
+mudPool.depends([
+    './app.js',
+    './xtempl.js',
     './user.js',
     './helpers/messages.js',
-    './helpers/toasts.js',
-    './api/auth.api.js'
-], (user, messages, toasts, authApi) => {
+    './helpers/toasts.js'
+], (app, xtempl, user, messages, toasts) => {
+        const c = new xtempl();
+        c.relocate();
 
-    //const r = new RowsAjax()
-    const r = new AuthRegisterForm()
-    // intentionally drop user
-    r.init(messages, toasts, authApi) 
+    mudPool.depends([
+        "./base/_helpers.js",
+        "./base/_settings.js",
+         "./base/_nav.js",
+        "./_common.js",
+        "./_scripts.js",
+      ],
+      (helpers, settings, nav, common, scripts) => {
+        const s = new scripts();
+        
+        const r = new AuthRegisterForm()
+        r.init() 
+    });
 })
 
-
-/*
-const Auth = function() {
-
-    modulepool.preload([
-        './user.js',
-        './helpers/messages.js',
-        './helpers/toasts.js',
-        './api/auth.api.js'
-    ], (modules) => {
-            modules.forEach((elem) => {
-                switch (elem.name) {
-                case 'Messages':
-                    Messages = elem;
-                    break;
-                case 'Toasts':
-                    Toasts = elem;
-                    break;
-                case 'AuthApi':
-                    AuthApi = elem;
-                    break;
-                }
-            })
-
-            const r = new AuthRegisterForm()
-            r.init()
-        })
-}();
-//export default AuthRegisterForm;
-*/

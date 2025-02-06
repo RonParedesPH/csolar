@@ -1,6 +1,6 @@
 class Race_MastersApi {
   constructor() {
-    this._rootpath = "http://localhost:52764/";
+    this._rootpath = "http://raceporting.verityclouds.com/";
     this._path = this._rootpath + "/api";
     this._token = "";
 

@@ -1,7 +1,7 @@
 //var User;
-var Messages;
-var Toasts;
-var Routes;
+// var Messages;
+// var Toasts;
+// var Routes;
 
 var geta;
 
@@ -13,6 +13,11 @@ class UserDomInject {
 
     //public
     init() {
+            if ( window.Params !== undefined)
+            {
+                document.title = window.Params.AppName;
+            }
+
              /* hide common elements
             */
             let itemsToHide = [
@@ -69,8 +74,11 @@ class UserDomInject {
                 if (user.profile.profilepic ? 1 : 0) {
                     const profilePic = document.querySelector('.user>img.profile');
                     profilePic.setAttribute('src', `img/profile/${user.profile.profilepic}`)
+                    profilePic.classList.remove('d-none');
                 }
-            }
+                else 
+                 profilePic.classList.add('d-none');
+            }   
 
             //ToDO: document.querySelector('.align-middle[data-bs-target="#settings"]')
             let them = document.querySelectorAll(".align-middle");
@@ -154,8 +162,7 @@ class UserDomInject {
                 let headr = '';
                 let templat = '';
                 let items = [];        
-                const routes = new Routes();
-
+ 
 
                 user.routeList.forEach((r) => {
                     let item = `item__${i}`
@@ -175,13 +182,9 @@ class UserDomInject {
                         `;
                     }
                     let titl = r.Name.split('/')[1];
-                    let item_target =  routes.getTarget(r.Name)
-                    if (item_target.length === 0)
-                        item_target = '#';
-
                     let tmp = templat.split('^--')[0] +
                         `<li>
-                            <a href="${item_target}" class="route" data-route="${r.Name}">
+                            <a href="${r.Path}" class="route" data-route="${r.Name}">
                                 <span class="label">${titl}</span>
                             </a>
                             </li> ^--` +
@@ -193,39 +196,42 @@ class UserDomInject {
                 if (templat.length)
                     items.push(templat.replace('^--', ''));
 
-                let kite = '';
                 if (items.length) {
+                    // let kite = '';
+
                     items.forEach((t) => {
-                        // let e = document.createElement('li');
-                        // //e.classList.add("dropdown");
-                        // e.innerHTML = t.replace('^--', '').trim();
-                        // them.appendChild(e);
-                        kite += '<li>' + t + '</li>';
+                        // // let e = document.createElement('li');
+                        // // //e.classList.add("dropdown");
+                        // // e.innerHTML = t.replace('^--', '').trim();
+                        // // them.appendChild(e);
+                        // kite += `<li>${t}</li>`;
+
+                        let e = document.createElement('li');
+                        e.innerHTML = t;
+                        them.appendChild(e);
 
                     });
-                    //const n = new Nav(document.getElementById("nav"));
-                    //n._addListeners();
-                }
-                // create an executable code block than will be called at the proper
-                // timing based on wether the menuPlainInner property of Nav is already set
-                const block = function(delay) {
-                    //console.log('delay at ' + delay)
-                    if (window.nav.menuPlainInner !== undefined) {
-                        const a = window.nav.menuPlainOuter.split(window.nav.menuPlainInner);
-                        window.nav.menuPlainOuter = a[0] + window.nav.menuPlainInner + kite + a[1];
-                        window.nav.RedrawMenuPlacement();                  
-                    } 
-                    //else console.log('called while undefined.' )
-                }
 
-                if (window.nav.menuPlainInner !== undefined) {
-                    block(0);
-                }
-                else 
-                    setTimeout( 
-                        () =>  { block(200) }, 
-                        200);  // <-- call delay at 200ms
+                    // // create an executable code block than will be called at the proper
+                    // // timing based on wether the menuPlainInner property of Nav is already set
+                    // const block = function(delay) {
+                    //     //console.log('delay at ' + delay)
+                    //     if (window.nav.menuPlainInner !== undefined) {
+                    //         const a = window.nav.menuPlainOuter.split(window.nav.menuPlainInner);
+                    //         window.nav.menuPlainOuter = a[0] + window.nav.menuPlainInner + kite + a[1];
+                    //         window.nav.RedrawMenuPlacement();                  
+                    //     } 
+                    //     //else console.log('called while undefined.' )
+                    // }
 
+                    // if (window.nav.menuPlainInner !== undefined) {
+                    //     block(0);
+                    // }
+                    // else 
+                    //     setTimeout( 
+                    //         () =>  { block(200) }, 
+                    //         200);  // <-- call delay at 200ms
+                }
                  //console.log('user menu at userDomInject - Ok')
             }
         }
@@ -235,17 +241,17 @@ class UserDomInject {
         document.body.classList.add('acornPageReady');
     }
 
-    //public
-    setEventHandlers() {
-        const routeNodes = document.querySelectorAll('.route');
+    // //public
+    // setEventHandlers() {
+    //     const routeNodes = document.querySelectorAll('.route');
 
-        const routes = new Routes()
-        routeNodes.forEach(r => {
-            let path = routes.getTarget(r.dataset.route)
-            if (path ? 1 : 0)
-                r.setAttribute('href',path)
-        });
-    }
+    //     const routes = new Routes()
+    //     routeNodes.forEach(r => {
+    //         let path = routes.getTarget(r.dataset.route)
+    //         if (path ? 1 : 0)
+    //             r.setAttribute('href',path)
+    //     });
+    // }
 }
 
 
@@ -253,15 +259,13 @@ mudPool.depends([
     './user.js',
     './helpers/messages.js',
     './helpers/toasts.js',
-    './helpers/routes.js'
-], (user, messages, toasts, routes) => {
-    Messages = messages;
-    Toasts = toasts;
-    Routes = routes;
+], (user, messages, toasts) => {
+    // Messages = messages;
+    // Toasts = toasts;
 
     const u = new UserDomInject();
     u.init();
-    u.setEventHandlers();
+    // u.setEventHandlers();
 });
 
 export default UserDomInject;

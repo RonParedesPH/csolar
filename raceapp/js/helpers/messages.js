@@ -1,4 +1,4 @@
-﻿class Messages {
+class Messages {
   constructor() {
     this.AuthenticationFatalError =
       "WARNING: API backend cannot be reached. You maybe working offline, network is unavailable or server is down.";

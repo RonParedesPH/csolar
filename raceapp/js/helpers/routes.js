@@ -17,7 +17,7 @@ class Routes {
   }
 
   getTarget(name) {
-    let ret = null;
+    let ret = '#';
     this._routeList.forEach((r) => {
         if (r.name === name)
             ret = r.target;

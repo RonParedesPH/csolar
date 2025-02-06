@@ -1,16 +1,16 @@
-﻿class User {
+class User {
     constructor() {
         // Initialization of the page plugins
         this.token = null;
         this.profile = { firstname: "", lastname: "", profilepic: "", username: "" };
         this.rolesList = [];
         this.routeList = [];
-        this.lastStamp = new Date().toISOString();
+        this.lastStamp = new Date("01/01/00").toISOString();
         this._init();
     }
 
     readFromStorage = function () {
-        let data = localStorage.getItem("acorn-user");
+        let data = sessionStorage.getItem("acorn-user");
         if (data) {
             let obj = JSON.parse(data);
             if (obj) {
@@ -25,21 +25,27 @@
                 })
             }
         }
+
+        return this.dataset();
     }
 
-    writeToStorage = function () {
-        let obj = {
+    dataset = function() {
+        return {
             lastStamp: this.lastStamp,
             token: this.token,
             profile: this.profile,
             rolesList: this.rolesList,
             routeList: this.routeList,
-        };
-        localStorage.setItem("acorn-user", JSON.stringify(obj));
+        }
+    }
+
+    writeToStorage = function () {
+        let obj = this.dataset();
+        sessionStorage.setItem("acorn-user", JSON.stringify(obj));
     }
 
     removeFromStorage = function () {
-        localStorage.removeItem("acorn-user");
+        sessionStorage.removeItem("acorn-user");
     }
 
     fullName = function() {
@@ -77,14 +83,38 @@
 
 
     _init() {
-        return;
+        this.readFromStorage();
     }
 
 }
-const main = function () {
-    window.currentUser = new User();
-    window.currentUser.readFromStorage();
-    document.title = "Race App Sandbox";
-}();
+
+let loginPage = 'pages.authentication.login.html';
+if (window.Params !== undefined) {
+    document.title = window.Params.AppName;
+    loginPage = window.Params.LoginPage;
+}
+
+window.currentUser = new User();
+const currentLocation = document.location.toString().split('/').pop();
+if (currentLocation.toLowerCase().indexOf(".auth") === -1) {
+    if (window.currentUser.token !== null) { 
+        if (Date.parse( new Date().toISOString()) - Date.parse(window.currentUser.lastStamp) > 30  *60*1000) {
+            
+            sessionStorage.setItem("ResumeToPage", currentLocation)
+            window.currentUser.removeFromStorage();
+            window.location = loginPage;
+        }
+        // if (currentLocation.toLocaleLowerCase().indexOf("pages.landing")===-1 && 
+        //     window.currentUser.routeList.find(o=>{ if (o.Path === currentLocation ) return true }) ===undefined) 
+        // {
+        //     window.currentUser.removeFromStorage();
+        //     window.location = loginPage;
+        // }
+    }
+    else {
+        window.currentUser.removeFromStorage();
+        window.location = loginPage;
+    } 
+}
 
 export default User;

@@ -1,4 +1,4 @@
-﻿/**
+/**
  *
  * SalesOrderDataTablePaged
  *
@@ -9,10 +9,9 @@
 var _this;
 
 class RaceClassDataTablePaged {
-    constructor(toasts, race_teamsApi) {
+    constructor(race_classApi) {
         _this = this
-        this.Toasts = toasts
-        this.Race_TeamsApi = race_teamsApi
+        this.Race_ClassApi = race_classApi
        
     }
 
@@ -57,7 +56,7 @@ class RaceClassDataTablePaged {
     _createInstance(e) {
         //var tabs = new ResponsiveTab(document.getElementById('responsiveTabs'));
         
-        const race_RacersApi = new this.Race_TeamsApi()
+        const race_RacersApi = new this.Race_ClassApi()
         this._datatable = jQuery(e).DataTable({
             scrollX: true,
             buttons: ['copy', 'excel', 'csv', 'print'],

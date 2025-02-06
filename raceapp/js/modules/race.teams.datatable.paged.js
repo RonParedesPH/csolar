@@ -1,4 +1,4 @@
-﻿/**
+/**
  *
  * SalesOrderDataTablePaged
  *
@@ -9,9 +9,8 @@
 var _this;
 
 class RaceTeamsDataTablePaged {
-    constructor(toasts, race_teamsApi) {
+    constructor(race_teamsApi) {
         _this = this
-        this.Toasts = toasts
         this.Race_TeamsApi = race_teamsApi
        
     }

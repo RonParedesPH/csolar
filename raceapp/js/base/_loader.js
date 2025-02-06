@@ -8,13 +8,14 @@
 
 (function () {
   let isContentLoaded = false;
-
-  //document.body.classList.add('spinner');
-  const timeoutId = setTimeout(() => {
-    if (isContentLoaded) {
-      document.body.classList.add('spinner');
-    }
-  }, 10);
+ 
+  document.body.classList.add('spinner');
+ 
+  // const timeoutId = setTimeout(() => {
+  //   if (!isContentLoaded) {
+  //     document.body.classList.add('spinner');
+  //   }
+  // }, 500);
 
   window.addEventListener('DOMContentLoaded', (event) => {
     isContentLoaded = true;

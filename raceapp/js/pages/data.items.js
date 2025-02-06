@@ -1,6 +1,6 @@
 /**
  *
- * RowsAjax
+ * RowsActive
  *
  * Interface.Plugins.Datatables.RowsAjax page content scripts. Initialized from scripts.js file.
  *
@@ -16,7 +16,7 @@
 
  var _this = null;
 
-class RowsAjax {
+class RowsActive {
     constructor() {
                     if (!jQuery().DataTable) {
                 console.log('DataTable is null!');
@@ -49,24 +49,36 @@ class RowsAjax {
     }
 
 
-    init(User, Messages, Toasts, ItemsApi) {
-        // instantiate
-        this._user = new User()
-        this._messages = new Messages()
-        this._itemsApi = new ItemsApi()
-        // get handle to factory
-        this._toastFactory = Toasts;
+    init() {
+      // instantiate
 
 
-            //this._initObjectsAndVariables();
-            this._createInstance();
-            this._addListeners();
-            this._extend();
-            this._initBootstrapModal();
+      //this._initObjectsAndVariables();
+      _this = this;
+      mudPool.depends(
+        [
+            './helpers/messages.js',
+            './helpers/toasts.js',
+            "./api/items.api.js",
+        ],
+        (messages, toasts, itemsApi) => {
+            this._user = new User();
+            //this._user.readFromStorage();
 
-            this._fetchData()
-            _this = this;
-   }
+            this._messages = new Messages();
+            // get handle to factory
+            this._toastFactory = Toasts;          
+            this._itemsApi = new itemsApi();
+
+          this._createInstance();
+          this._addListeners();
+          this._extend();
+          this._initBootstrapModal();
+
+          this._fetchData();
+        }
+      );
+    }
 
     // _initObjectsAndVariables() {
     //     import('../helpers/messages.js')
@@ -662,19 +674,27 @@ class RowsAjax {
 
 // const main = function() {
 
-modulepool.depends([
+mudPool.depends([
+    './app.js',
     './user.js',
-    './helpers/messages.js',
-    './helpers/toasts.js',
-        './api/items.api.js',
     './user.DomInject.js',
-], (user, messages, toasts, itemsApi) => {
-    // User = user
-    // Messages = messages
-    // Toasts = toasts
-    // ItemsApi = itemsApi
+], (app, user, dom) => {
 
-    const r = new RowsAjax()
-    r.init(user, messages, toasts, itemsApi)
-})
-// }();
+    mudPool.depends(
+      [
+        "./base/_helpers.js",
+        "./base/_settings.js",
+        "./base/_search.js",
+        "./base/_nav.js",
+        "./_common.js",
+        "./_scripts.js",
+      ],
+      (helpers, settings, search, nav, common, scripts) => {
+        const s = new scripts();
+
+        const r = new RowsActive();
+        r.init();
+      }
+    );
+}
+);

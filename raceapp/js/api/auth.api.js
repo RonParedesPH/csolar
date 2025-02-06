@@ -28,6 +28,9 @@ class AuthApi {
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4) {
+                if (severecallback === undefined && negcallback !== undefined)
+                    severecallback = negcallback;
+
                 if (this.status >= 200 && this.status <= 204) {
                     if (typeof callback === "function") callback(this.responseText);
                     if (typeof alwayscallback === "function") alwayscallback();
@@ -37,7 +40,7 @@ class AuthApi {
                     if (typeof alwayscallback === "function") alwayscallback();
                 }
                 else if (this.status >= 500 || this.status == 0 ) {
-                    if (typeof severecallback === "function") severecallback({status: this.status, statusText: this.statusText, responseText: ''});
+                     if (typeof severecallback === "function") severecallback({status: this.status, statusText: this.statusText, responseText: ''});
                     if (typeof alwayscallback === "function") alwayscallback();
                 }
             }

@@ -1,4 +1,4 @@
-﻿class HtmlLoader {
+class HtmlLoader {
     constructor() {
         return
     }
